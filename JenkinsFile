@@ -11,5 +11,15 @@ pipeline {
                 bat 'docker run --name seleniumgrid -d -p 4999:4444 -v /dev/shm:/dev/shm selenium/standalone-chrome:4.0.0-beta-1-prerelease-20201208'
             }
         } 
+        stage ('Docker Run Test') {
+            steps {
+                bat 'docker run -v "$PWD/target:/usr/target" seleniumgrid mvn test -Denv=hom -Dbrowser=chrome'
+            }
+        } 
+        stage ('Docker Stop Environment') {
+            steps {
+                bat 'docker stop seleniumgrid'
+            }
+        }    
     }
 }
