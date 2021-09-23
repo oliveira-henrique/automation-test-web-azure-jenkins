@@ -7,13 +7,14 @@ pipeline {
                 bat 'echo deu certo!'
             }
         }
-
-        steps ('[BASH] Connect SSH VM'){
-            sh '''#!/bin/bash
-                   ssh -i "aws-ubuntu-henrique.pem" ubuntu@ec2-18-212-35-218.compute-1.amazonaws.com
-            '''
+        stage ('[BASH] Connect SSH VM') {
+            steps {
+                sh '''#!/bin/bash
+                    ssh -i "aws-ubuntu-henrique.pem" ubuntu@ec2-18-212-35-218.compute-1.amazonaws.com
+                '''
+            }
         }
-         // Download imagem do ambiente
+        // Download imagem do ambiente
         stage ('Connect SSH VM') {
             steps {
                 bat 'ssh -i "aws-ubuntu-henrique.pem" ubuntu@ec2-18-212-35-218.compute-1.amazonaws.com'
