@@ -7,6 +7,17 @@ pipeline {
                 bat 'echo deu certo!'
             }
         }
+
+        steps ('[BASH] Connect SSH VM'){
+            sh '''#!/bin/bash
+                   ssh -i "aws-ubuntu-henrique.pem" ubuntu@ec2-18-212-35-218.compute-1.amazonaws.com
+            '''
+        }
+         // Download imagem do ambiente
+        stage ('Connect SSH VM') {
+            steps {
+                bat 'ssh -i "aws-ubuntu-henrique.pem" ubuntu@ec2-18-212-35-218.compute-1.amazonaws.com'
+        } 
         // Download imagem do ambiente
         stage ('Docker Prepared Environment') {
             steps {
@@ -24,7 +35,7 @@ pipeline {
         stage ('Docker Run Test') {
             steps {
                 // Windows
-                bat 'docker run --network="host" -v "./target:/usr/target" teste-project mvn test -Denv=hom'
+                bat 'docker run --network="host" -v "./target:/usr/target" teste-project mvn test -Denv=uat13'
 
                 // Linux / Mac
                 //bat 'docker run --network="host" -v "$PWD/target:/usr/target" selenium/standalone-chrome mvn test -Denv=hom -Dbrowser=chrome'
