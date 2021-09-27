@@ -1,14 +1,6 @@
 pipeline {
     agent any 
     stages {
-         // Download imagem do ambiente
-        stage ('Docker Prepared Environment') {
-            steps {
-                sh '''#!/bin/bash
-                     sudo usermod -aG docker $(whoami)
-                '''
-            }
-        } 
         // Download imagem do ambiente
         stage ('Docker Prepared Environment') {
             steps {
