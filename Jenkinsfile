@@ -5,7 +5,7 @@ pipeline {
         stage ('Docker Prepared Environment') {
             steps {
                 sh '''#!/bin/bash
-                    docker run --rm --name seleniumgrid -d -p 4444:4444 -v /dev/shm:/dev/shm --privileged selenium/standalone-chrome:4.0.0-rc-1-prerelease-20210804
+                    sudo docker run --rm --name seleniumgrid -d -p 4444:4444 -v /dev/shm:/dev/shm --privileged selenium/standalone-chrome:4.0.0-rc-1-prerelease-20210804
                 '''
             }
         } 
@@ -13,7 +13,7 @@ pipeline {
         stage ('Docker Build') {
             steps {
                 sh '''#!/bin/bash
-                    docker build -t teste-project -f ./Dockerfile .
+                    sudo docker build -t teste-project -f ./Dockerfile .
                 '''
             }
         } 
@@ -21,7 +21,7 @@ pipeline {
         stage ('Docker Run Test') {
             steps {
                 sh '''#!/bin/bash
-                    docker run --network="host" -v "./target:/usr/target" teste-project mvn test -Denv=uat13
+                    sudo docker run --network="host" -v "./target:/usr/target" teste-project mvn test -Denv=uat13
                 '''
             }
         } 
@@ -29,7 +29,7 @@ pipeline {
         stage ('Docker Stop Environment') {
             steps {
                 sh '''#!/bin/bash
-                    docker stop seleniumgrid
+                    sudo docker stop seleniumgrid
                 '''
             }
         }
