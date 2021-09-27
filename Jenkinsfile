@@ -13,16 +13,15 @@ pipeline {
         stage ('Docker Build') {
             steps {
                 sh '''#!/bin/bash
-                   docker build -t teste-project -f ./Dockerfile .
+                    docker build -t teste-project -f ./Dockerfile .
                 '''
-                bat ''
             }
         } 
         // Rodar os testes
         stage ('Docker Run Test') {
             steps {
                 sh '''#!/bin/bash
-                   docker run --network="host" -v "./target:/usr/target" teste-project mvn test -Denv=uat13
+                    docker run --network="host" -v "./target:/usr/target" teste-project mvn test -Denv=uat13
                 '''
             }
         } 
@@ -30,7 +29,7 @@ pipeline {
         stage ('Docker Stop Environment') {
             steps {
                 sh '''#!/bin/bash
-                   docker stop seleniumgrid
+                    docker stop seleniumgrid
                 '''
             }
         }

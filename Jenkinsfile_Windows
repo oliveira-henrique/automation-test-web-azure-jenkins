@@ -1,0 +1,47 @@
+pipeline {
+    agent any 
+    stages {
+        /*  stage ('Just Test') {
+            steps {
+                git credentialsId: 'oliveira-henrique', url: 'https://github.com/oliveira-henrique/automation-test-web-azure-jenkins'
+            }
+        } 
+
+        stage ('[BASH] Connect SSH VM') {
+            steps {
+                sh '''#!/bin/bash
+                    ssh -i "aws-ubuntu-henrique.pem" ubuntu@ec2-18-212-35-218.compute-1.amazonaws.com
+                '''
+            }
+        } */
+        
+        // Download imagem do ambiente
+        stage ('Docker Prepared Environment') {
+            steps {
+                bat 'docker run --rm --name seleniumgrid -d -p 4444:4444 -v /dev/shm:/dev/shm --privileged selenium/standalone-chrome:4.0.0-rc-1-prerelease-20210804'
+            }
+        } 
+        // Contruir imagem
+        stage ('Docker Build') {
+            steps {
+                bat 'docker build -t teste-project -f ./Dockerfile .'
+            }
+        } 
+        // Rodar os testes
+        stage ('Docker Run Test') {
+            steps {
+                // Windows
+                bat 'docker run --network="host" -v "./target:/usr/target" teste-project mvn test -Denv=uat13'
+
+                // Linux / Mac
+                //bat 'docker run --network="host" -v "$PWD/target:/usr/target" teste-project mvn test -Denv=uat13'
+            }
+        } 
+        // 
+        stage ('Docker Stop Environment') {
+            steps {
+                bat 'docker stop seleniumgrid'
+            }
+        }
+    }
+}
