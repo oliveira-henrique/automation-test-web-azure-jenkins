@@ -1,14 +1,6 @@
 pipeline {
     agent any 
     stages {
-        // Validando a sintaxe do Dockerfile
-        stage ('Validando a sintaxe do Dockerfile') {
-            steps {
-                sh '''#!/bin/bash
-                    docker run --rm -i hadolint/hadolint < Dockerfile
-                '''
-            }
-        } 
         // Download imagem do ambiente
         stage ('Docker Prepared Environment') {
             steps {
