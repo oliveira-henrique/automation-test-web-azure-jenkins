@@ -13,7 +13,7 @@ pipeline {
         stage ('Docker Build') {
             steps {
                 sh '''#!/bin/bash
-                    docker build -t $(Build.Repository.Name) -f ./Dockerfile .
+                    docker build -t qa-test-web -f ./Dockerfile .
                 '''
             }
         } 
@@ -21,7 +21,7 @@ pipeline {
         stage ('Docker Run Test') {
             steps {
                 sh '''#!/bin/bash
-                    docker run --network="host" -v "./target:/usr/target" $(Build.Repository.Name) mvn test -Denv=uat13
+                    docker run --network="host" -v "./target:/usr/target" qa-test-web mvn test -Denv=uat13
                 '''
             }
         } 

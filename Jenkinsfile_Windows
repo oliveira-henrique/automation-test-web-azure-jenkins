@@ -10,14 +10,14 @@ pipeline {
         // Contruir imagem
         stage ('Docker Build') {
             steps {
-                bat 'docker build -t $(Build.Repository.Name) -f ./Dockerfile .'
+                bat 'docker build -t qa-test-web -f ./Dockerfile .'
             }
         } 
         // Rodar os testes
         stage ('Docker Run Test') {
             steps {
                 // Windows
-                bat 'docker run --network="host" -v "./target:/usr/target" $(Build.Repository.Name) mvn test -Denv=uat13'
+                bat 'docker run --network="host" -v "./target:/usr/target" qa-test-web mvn test -Denv=uat13'
 
                 // Linux / Mac
                 //bat 'docker run --network="host" -v "$PWD/target:/usr/target" teste-project mvn test -Denv=uat13'
