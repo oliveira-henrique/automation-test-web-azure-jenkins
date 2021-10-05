@@ -27,7 +27,9 @@ pipeline {
         } 
         post {
             always {
-                bat 'docker stop seleniumgrid'
+                sh '''#!/bin/bash
+                    docker stop seleniumgrid
+                '''
             }
         }
         /*
