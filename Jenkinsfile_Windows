@@ -17,7 +17,7 @@ pipeline {
         stage ('Docker Run Test') {
             steps {
                 // Windows
-                echo '$AMBIENTE'
+                echo "$AMBIENTE"
                 bat 'docker run --network="host" -v "./target:/usr/target" qa-test-web mvn test -Denv=$AMBIENTE'
 
                 // Linux / Mac
