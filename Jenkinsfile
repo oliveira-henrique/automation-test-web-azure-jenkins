@@ -21,7 +21,7 @@ pipeline {
         stage ('Docker Run Test') {
             steps {
                 sh '''#!/bin/bash
-                    docker run --network="host" -v "./target:/usr/target" qa-test-web mvn test -Denv=uat13
+                    docker run --network="host" -v "$PWD/target:/usr/target" qa-test-web mvn test -Denv=uat13
                 '''
             }
         } 
