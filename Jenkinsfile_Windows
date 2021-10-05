@@ -18,7 +18,7 @@ pipeline {
             steps {
                 // Windows
                 echo "$AMBIENTE"
-                bat 'docker run --network="host" -v "./target:/usr/target" qa-test-web mvn test -Denv='+"$AMBIENTE"+'
+                bat 'docker run --network="host" -v "./target:/usr/target" qa-test-web mvn test -Denv='+"$AMBIENTE"+''
 
                 // Linux / Mac
                 //bat 'docker run --network="host" -v "$PWD/target:/usr/target" teste-project mvn test -Denv=uat13'
