@@ -25,13 +25,6 @@ pipeline {
                 '''
             }
         } 
-        post {
-            always {
-                sh '''#!/bin/bash
-                    docker stop seleniumgrid
-                '''
-            }
-        }
         /*
         // Docker Stop Environment
         stage ('Docker Stop Environment') {
@@ -42,5 +35,12 @@ pipeline {
             }
         }
         */
+    }
+    post {
+        always {
+            sh '''#!/bin/bash
+                docker stop seleniumgrid
+            '''
+        }
     }
 }

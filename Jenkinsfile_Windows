@@ -23,11 +23,6 @@ pipeline {
                 //bat 'docker run --network="host" -v "$PWD/target:/usr/target" teste-project mvn test -Denv=uat13'
             }
         } 
-        post {
-            always {
-                bat 'docker stop seleniumgrid'
-            }
-        }
         /*
         // 
         stage ('Docker Stop Environment') {
@@ -36,5 +31,10 @@ pipeline {
             }
         }
          */
+    }
+    post {
+        always {
+            bat 'docker stop seleniumgrid'
+        }
     }
 }
