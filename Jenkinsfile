@@ -25,6 +25,12 @@ pipeline {
                 '''
             }
         } 
+        post {
+            always {
+                bat 'docker stop seleniumgrid'
+            }
+        }
+        /*
         // Docker Stop Environment
         stage ('Docker Stop Environment') {
             steps {
@@ -33,5 +39,6 @@ pipeline {
                 '''
             }
         }
+        */
     }
 }
