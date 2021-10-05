@@ -5,10 +5,12 @@ pipeline {
         stage ('Docker Prepared Environment') {
             steps {
                 sh '''#!/bin/bash
+                    echo ${AMBIENTE}
                     docker run --rm --name seleniumgrid -d -p 4444:4444 -v /dev/shm:/dev/shm --privileged selenium/standalone-chrome:4.0.0-rc-1-prerelease-20210804
                 '''
             }
         } 
+        /*
         // Contruir imagem
         stage ('Docker Build') {
             steps {
@@ -25,17 +27,9 @@ pipeline {
                 '''
             }
         } 
-        /*
-        // Docker Stop Environment
-        stage ('Docker Stop Environment') {
-            steps {
-                sh '''#!/bin/bash
-                    docker stop seleniumgrid
-                '''
-            }
-        }
         */
     }
+    // Docker Stop Environment
     post {
         always {
             sh '''#!/bin/bash
