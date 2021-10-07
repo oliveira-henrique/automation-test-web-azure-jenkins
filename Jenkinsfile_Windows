@@ -17,21 +17,12 @@ pipeline {
         stage ('Docker Run Test') {
             steps {
                 // Windows
-                echo "$AMBIENTE"
                 bat 'docker run --network="host" -v "./target:/usr/target" qa-test-web mvn test -Denv='+"$AMBIENTE"+''
 
                 // Linux / Mac
                 //bat 'docker run --network="host" -v "$PWD/target:/usr/target" teste-project mvn test -Denv=uat13'
             }
-        } 
-        /*
-        // 
-        stage ('Docker Stop Environment') {
-            steps {
-                bat 'docker stop seleniumgrid'
-            }
         }
-         */
     }
     post {
         always {
