@@ -14,6 +14,7 @@ public class DriverFactory {
 
 
     public static WebDriver createInstance(String browser) {
+        DriverManager.setBrowserName(browser);
         Configuration configuration = ConfigCache.getOrCreate(Configuration.class);
         Target target = Target.valueOf(configuration.target().toUpperCase());
         WebDriver webdriver;

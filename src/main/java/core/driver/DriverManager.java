@@ -5,6 +5,8 @@ import core.azure.model.attachment.Attachment;
 import com.github.javafaker.Faker;
 import core.config.Configuration;
 import cucumber.api.Scenario;
+import lombok.Getter;
+import lombok.Setter;
 import org.aeonbits.owner.ConfigCache;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
@@ -20,6 +22,8 @@ public class DriverManager {
     public static final Configuration configuration = ConfigCache.getOrCreate(Configuration.class);
     public static Faker faker = new Faker(new Locale(configuration.faker()));
     public static Collection<Attachment> attachments;
+    @Getter @Setter
+    public static String browserName;
 
     public static WebDriver getDriver() {
         return  driver.get();
@@ -47,7 +51,7 @@ public class DriverManager {
 
     public static String getInfo() {
         Capabilities cap = ((RemoteWebDriver) DriverManager.getDriver()).getCapabilities();
-        String browserName = cap.getBrowserName();
+        setBrowserName(cap.getBrowserName());
         String platform = cap.getPlatform().toString();
         String version = cap.getVersion();
         return String.format("browser: %s v: %s platform: %s", browserName, version, platform);

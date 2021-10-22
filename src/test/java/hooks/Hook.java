@@ -3,6 +3,7 @@ package hooks;
 import core.azure.controller.RunTestController;
 import core.driver.DriverFactory;
 import core.driver.DriverManager;
+import core.report.Report;
 import lombok.extern.log4j.Log4j2;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -32,6 +33,7 @@ public class Hook extends DriverManager {
 
     @After
     public void end(Scenario scenario){
+        Report.takeScreenShot();
         DriverManager.quit(scenario);
         RunTestController runTestController = new RunTestController();
         runTestController.runTestCase(scenario);
