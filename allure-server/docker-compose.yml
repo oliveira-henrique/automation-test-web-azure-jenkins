@@ -12,7 +12,7 @@ services:
   allure-ui:
     image: "rubenslobo/allure-server-ui:latest"
     environment:
-      ALLURE_DOCKER_PUBLIC_API_URL: "http://52.23.233.189:5050"
+      ALLURE_DOCKER_PUBLIC_API_URL: "http://3.91.182.146:5050"
       ALLURE_DOCKER_PUBLIC_API_URL_PREFIX: ""
     ports:
       - "5252:5252"
